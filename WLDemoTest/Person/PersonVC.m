@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"hello world ");
     //self.title = @"个人中心";
 }
 - (IBAction)nextPage:(id)sender {
