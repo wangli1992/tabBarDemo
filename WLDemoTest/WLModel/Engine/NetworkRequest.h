@@ -11,6 +11,10 @@
 #import "User.h"
 @interface NetworkRequest : NSObject
 
+typedef void (^Callback)(id dataString);
+
 @property(nonatomic,copy)void(^sendUser)(User *user);
--(void)loginRequestUserName:(NSString *)userName psaaword:(NSString *)password withCtrl:(UIViewController *)ctrl;
+@property(nonatomic,strong)WLEngine *requester;
+-(void)loginRequestUserName:(NSString *)userName psaaword:(NSString *)password withCtrl:(UIViewController *)ctrl;//登录接口
+-(void)logoutWithCtrl:(UIViewController *)ctrl withCallBack:(Callback)callback;
 @end

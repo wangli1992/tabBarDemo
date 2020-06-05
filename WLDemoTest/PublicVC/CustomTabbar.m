@@ -5,6 +5,7 @@
 //  Created by wangli on 2017/11/23.
 //  Copyright © 2017年 wangli. All rights reserved.
 //
+#define DEVICE_IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #import "CustomTabbar.h"
 #import "ViewController.h"
@@ -12,6 +13,8 @@
 #import "PersonVC.h"
 #import "CustomNavCtrl.h"
 #import "HomeViewController.h"
+#import "MainVC.h"
+
 @interface CustomTabbar ()
 {
     NSMutableArray *btntitlearr;
@@ -28,13 +31,35 @@
     
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+
     self.tabBar.translucent = NO;
+    //self.view.backgroundColor = [UIColor colorWithHexString:@"#f3f4f6"];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"#f3f4f6"]];
     btntitlearr = [[NSMutableArray alloc]initWithObjects:@"首页",@"消息",@"个人中心", nil];
     btnSelectImgArr = [NSMutableArray arrayWithObjects:@"home-selected",@"message-selected",@"person-selected", nil];
     btnUnselectImgArr = [NSMutableArray arrayWithObjects:@"home-unselected",@"message-unselected",@"person-unselected", nil];
     [self customTabbar];
+    //self.tabBarController.hide
+//    [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//        [self.navigationBar setShadowImage:[self.navigationBar lineImageWithColor:[UIColor colorWithHexString:@"#fb9966"]]];
+//
+//
     
+}
+- (UIImage *)lineImageWithColor:(UIColor *)lineColor {
+
+    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0.5);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+
+    CGContextSetFillColorWithColor(ctx, lineColor.CGColor);
+    CGContextFillRect(ctx, rect);
+    
+    UIImage *lineImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return lineImage;
+
 }
 -(void)customTabbar{
     // UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -61,11 +86,13 @@
         }
         [btn addTarget:self action:@selector(tabbarClick:) forControlEvents:UIControlEventTouchUpInside];
         [bigView addSubview:btn];
+       // [self changeTabbarColor];
    }
   
 
     //方式2
-    HomeViewController *homeVC = [[HomeViewController alloc]init];
+//    HomeViewController *homeVC = [[HomeViewController alloc]init];
+    MainVC *homeVC= [[MainVC alloc]init];
     [self addChildVc:homeVC title:@"首页" image:@"home-unselected" selectedImage:@"home-selected"];
 
     MessageVC *messageVC = [[MessageVC alloc]init];
@@ -98,6 +125,21 @@
     
 
 }
+- (void)changeTabbarColor {
+    CGRect frame;
+    UIView *tabBarView = [[UIView alloc] init];
+    tabBarView.backgroundColor = [UIColor colorWithHexString:@"#f3f4f6"];
+    if (DEVICE_IS_IPHONE_X) {
+    frame = CGRectMake(0, 0, screen_width, 83);
+    }else {
+        frame = self.tabBar.bounds;
+    }
+    tabBarView.frame = frame;
+    [[UITabBar appearance] insertSubview:tabBarView atIndex:0];
+    
+}
+
+
 
 -(void)tabbarClick:(UIButton *)btn{
     btn.selected  =  YES;

@@ -1,6 +1,21 @@
 platform :ios, '9.0'
-#use_frameworks!个别需要用到它，比如reactiveCocoa
+use_frameworks! #个别需要用到它，比如reactiveCocoa
 
 target 'WLDemoTest' do
-  pod 'AFNetworking', '~> 3.1.0'
+    pod 'AFNetworking', '~> 3.1.0'
+    pod 'YYText', '~> 1.0.7'
+    pod 'YYKeyboardManager', '~> 1.0.1'
+    pod 'YYDispatchQueuePool', '~> 1.0'
+    pod 'YYAsyncLayer', '~> 1.0'
+    pod 'YYCategories', '~> 1.0.4'
+    pod 'MJExtension', '~> 3.0.14'
+    pod 'MRDLNA', '~> 0.1.1'
+    pod 'FLEX' #有私有api，上架前需要注释
+    pod 'Masonry', '~> 1.1.0'
+    pod  'DZNEmptyDataSet'
+    pod 'FSPagerView'
+    pod 'MJRefresh' 
+    pod 'YYWebImage'
+    
+  
 end

@@ -12,7 +12,25 @@
 		<key>WLDemoTest.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>10</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>81DB81DF205E8EB300C9E677</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>81DB81FA205E8EB400C9E677</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>81DB8205205E8EB400C9E677</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

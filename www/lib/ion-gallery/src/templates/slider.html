@@ -1,0 +1,31 @@
+<ion-modal-view class="imageView">
+  <!-- <ion-header-bar class="headerView" ng-show="!hideAll">
+    <button class="button button-outline button-light close-btn" ng-click="closeModal()">{{::actionLabel}}</button>
+  </ion-header-bar> -->
+
+  <ion-content class="has-no-header" scroll="false">
+    <ion-slide-box active-slide="selectedSlide" show-pager="false" class="listContainer" on-slide-changed="slideChanged($index)" >
+      <ion-slide ng-repeat="single in slides track by $index">
+        <ion-scroll direction="xy" locking="false" zooming="true" min-zoom="1" scrollbar-x="false" scrollbar-y="false" ion-slide-action
+          delegate-handle="slide-{{$index}}" overflow-scroll="false" on-swipe-right="onSwipeRight($index)" on-swipe-left="onSwipeLeft($index)">
+          <div class="item item-image gallery-slide-view" style="border-width: 0px !important;">
+            <img ng-src="{{single.src}}" on-hold="saveImg(single.src)">
+          </div>
+          <!-- <button class="button button-outline button-light save-btn" ng-click="saveImg(single.src)">Save</button> -->
+          <div ng-if="single.sub.length > 0" class="image-subtitle" ng-show="!hideAll">
+            <span ng-bind-html='single.sub'></span>
+          </div>
+          <!-- <button class="button  button-icon icon save-btn" ng-click="downloadImg(single.src,$event);$event.stopPropagation();" ng-if="!downloadShow">
+            <img src="img/download.png" style="width:24px;height: 24px;" />
+          </button> -->
+        </ion-scroll>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+
+  <ion-footer-bar class="headerView">
+    <button class="button  button-icon icon save-btn" ng-click="downloadImg($event);" ng-if="!downloadShow&&!isWeiXin">
+      <img src="img/download.png" style="width:24px;height: 24px;" />
+    </button>
+  </ion-footer-bar>
+</ion-modal-view>

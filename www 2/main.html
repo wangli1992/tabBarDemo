@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="img-src * 'self' data: blob: cdvphotolibrary: filesystem: cdvfile:">
+    <meta name="format-detection" content="telephone=no" />
+    <title>厂家售后</title>
+
+    <script>
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+            WeixinJSBridge.call('hideOptionMenu');
+        });
+    </script>
+
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="lib/md5/md5.min.js"></script>
+    <script src="lib/toaster/toaster.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script src="lib/jr-crop/dist/jr-crop.min.js"></script>
+    <script src="lib/intro/intro.min.js"></script>
+    <script src="lib/intro/angular-intro.min.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="lib/angular-elastic/elastic.js"></script>
+    <script src="lib/md5/spark-md5.js"></script>
+    <script src="lib/chat/webim.min.js"></script>
+    <script src="lib/chat/json2.js"></script>
+    <script src="lib/cache/imgcache.js"></script>
+    <script src="lib/cache/ionic-img-cache.min.js"></script>
+    <script src="lib/angular-timeline/dist/angular-timeline.js"></script>
+    <script src="lib/pdf.js-viewer/pdf.js"></script>
+    <script src="lib/angular-pdfjs-viewer/dist/angular-pdfjs-viewer.js"></script>
+    <script src="lib/echart/echarts.common.min.js"></script>
+    <script src="lib/ion-gallery/dist/ion-gallery.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- <script src="cordova.js"></script> -->
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.module.css" rel="stylesheet">
+    -->
+    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <link href="lib/toaster/toaster.min.css" rel="stylesheet">
+    <link href="lib/intro/introjs.min.css" rel="stylesheet">
+    <link href="lib/jr-crop/dist/jr-crop.css" rel="stylesheet">
+    <link href="lib/angular-timeline/dist/angular-timeline.css" rel="stylesheet">
+    <link href="lib/pdf.js-viewer/viewer.css" rel="stylesheet">
+    <link href="lib/ion-gallery/dist/ion-gallery.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="dist/app.css">
+
+    <script src="dist/app.js"></script>
+
+    <!-- Only required for Tab projects w/ pages in multiple tabs
+    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+    -->
+
+
+</head>
+
+<body ng-app="app" animation="slide-left-right-ios7">
+    <toaster-container toaster-options="{'limit':1, 'time-out': 2000, 'tap-to-dismiss':true, 'mouseover-timer-stop': false, 'prevent-duplicates': true}"
+        style="margin-top: 10%;"></toaster-container>
+    <ion-nav-view class="global_ios">
+
+    </ion-nav-view>
+
+
+</body>
+
+</html>

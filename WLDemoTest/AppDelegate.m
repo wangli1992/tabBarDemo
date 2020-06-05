@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 #import  "LoginVC.h"
 #import "CustomTabbar.h"
+#import "WebVC.h"
+#import "WelComeVC.h"
+#import "WLEngine.h"
+//调试工具，上架时注掉
+#import "FLEXManager.h"
 @interface AppDelegate ()
 
 @end
@@ -17,17 +22,39 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+#if DEBUG
+    [[FLEXManager sharedManager] showExplorer];
+#endif
     // 1.创建窗口
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
-    NSString *username = [UD objectForKey:@"username"];
+    BOOL isLogin = [[UD objectForKey:@"isLogin"] isEqualToString:@"login"];
+    NSLog(@"is login :%@",[UD objectForKey:@"isLogin"]);
     LoginVC *logVC = [[LoginVC alloc]init];
     CustomTabbar *tabbar = [[CustomTabbar alloc]init];
-    if(username){
-        self.window.rootViewController = tabbar;
+    NSString *lastVersion = [UD objectForKey:@"Version"];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];//获取app版本信息
+    NSString *currentVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    if([lastVersion isEqualToString:currentVersion]){
+        if(isLogin){
+            self.window.rootViewController = tabbar;
+            NSString *userName = [NSString stringWithFormat:@"t%@",[UD objectForKey:@"username"]];
+            NSString *password = [UD objectForKey:@"password"];
+            WLEngine *req = [[WLEngine alloc]init];
+            [req doLogin:userName password:password];
+        }else{
+            self.window.rootViewController = logVC;
+        }
     }else{
-        self.window.rootViewController = logVC;
+        //获取当前版本号
+        [UD setObject:currentVersion forKey:@"Version"];
+        [UD synchronize];
+        WelComeVC *welCome = [[WelComeVC alloc]init];
+        self.window.rootViewController = welCome;
+        
     }
+    
     // 3.显示窗口
     [self.window makeKeyAndVisible];
     return YES;
@@ -62,6 +89,35 @@
     [self saveContext];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    /*外部文件访问本应用,会传递参数过来*/
+    NSLog(@"application = %@",application);
+    NSLog(@"url = %@",url);
+    //来源的 Bundle identifier
+    NSLog(@"sourceApplication = %@",sourceApplication);
+    NSLog(@"annotation = %@",annotation);
+    if(url!=nil){
+        NSString *path = [url absoluteString];
+        NSMutableString *string = [[NSMutableString alloc] initWithString:path];
+        if ([path hasPrefix:@"file://"]) {
+            [string replaceOccurrencesOfString:@"file://" withString:@"" options:NSCaseInsensitiveSearch  range:NSMakeRange(0, path.length)];
+            NSLog(@"string url ====%@",string);
+            WebVC *web = [[WebVC alloc]init];
+            web.url = url;
+            //  [self.window.rootViewController presentViewController:web animated:YES completion:nil];
+            self.window.rootViewController = web;
+            
+            // WebVC *web = (WebVC *)self.window.rootViewController;
+            // [web  handleDocumentOpenURL:url];
+            
+        }
+        
+        //  [self.viewController openPng:string];
+    }
+    return YES;
+}
+
 
 #pragma mark - Core Data stack
 
@@ -84,7 +140,7 @@
                      * The device is out of space.
                      * The store could not be migrated to the current model version.
                      Check the error message to determine what the actual problem was.
-                    */
+                     */
                     NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }
